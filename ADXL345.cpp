@@ -23,10 +23,14 @@
 //Gravity at Earth's surface in m/s/s
 #define GRAVITY                (9.80665f / 1000)
 
+#define __ADDUNITS(x, y)         (x##y)
+
 #if MBED_MAJOR_VERSION == 2
 #define WAIT_MS(x)       wait_ms(x)
 #elif  MBED_MAJOR_VERSION == 5
 #define WAIT_MS(x)       Thread::wait(x)
+#elif  MBED_MAJOR_VERSION == 6
+#define WAIT_MS(x)       ThisThread::sleep_for(__ADDUNITS(x,ms))
 #else
 #error "Running on Unknown OS"
 #endif
